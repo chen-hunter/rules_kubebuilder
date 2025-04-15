@@ -148,6 +148,7 @@ def _toolchains():
 
 _controller_gen_crd = rule(
     implementation = _controller_gen_crd_impl,
+    attrs = COMMON_ATTRS,
     toolchains = _toolchains(),
     doc = "Run the CRD generating portion of controller-gen. " +
           "The output directory will be the name of the rule.",
