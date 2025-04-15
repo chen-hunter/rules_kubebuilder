@@ -70,18 +70,6 @@ def _env():
 def _controller_gen_crd_impl(ctx):
     outputdir = ctx.actions.declare_directory(ctx.label.name)
     cg_cmd = "crd"
-    extra_args = []
-    if ctx.attr.trivialVersions:
-        extra_args.append("trivialVersions=true")
-    if ctx.attr.preserveUnknownFields:
-        extra_args.append("preserveUnknownFields=true")
-    if ctx.attr.crdVersions:
-        fail("Unsuppored argument, please file a feature request")
-    if ctx.attr.maxDescLen:
-        fail("Unsupported argument, please file a feature request")
-    if len(extra_args) > 0:
-        cg_cmd += ":{args}".format(args = ",".join(extra_args))
-
     _controller_gen_action(ctx, cg_cmd, [outputdir], outputdir.path)
 
     return DefaultInfo(
@@ -139,22 +127,6 @@ COMMON_ATTRS = {
     ),
 }
 
-def _crd_extra_attrs():
-    ret = COMMON_ATTRS
-    ret.update({
-        "trivialVersions": attr.bool(
-            default = True,
-        ),
-        "preserveUnknownFields": attr.bool(
-            default = False,
-        ),
-        "crdVersions": attr.string_list(
-        ),
-        "maxDescLen": attr.int(
-        ),
-    })
-    return ret
-
 def _rbac_extra_attrs():
     ret = COMMON_ATTRS
     ret.update({
@@ -176,7 +148,6 @@ def _toolchains():
 
 _controller_gen_crd = rule(
     implementation = _controller_gen_crd_impl,
-    attrs = _crd_extra_attrs(),
     toolchains = _toolchains(),
     doc = "Run the CRD generating portion of controller-gen. " +
           "The output directory will be the name of the rule.",
