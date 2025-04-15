@@ -2,11 +2,12 @@ workspace(name = "rules_kubebuilder")
 
 load("@rules_kubebuilder//kubebuilder:sdk.bzl", "kubebuilder_register_sdk")
 
-kubebuilder_register_sdk(version = "2.3.1")
+kubebuilder_register_sdk(version = "4.5.2")
 
 ## Next section is for testing in this same MP.
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
 http_archive(
     name = "rules_pkg",
@@ -35,3 +36,19 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 go_rules_dependencies()
 
 go_register_toolchains()
+
+# controller gen binaries
+
+http_file(
+    name = "controller_gen_linux_amd64",
+    url = "https://github.com/kubernetes-sigs/controller-tools/releases/download/v0.17.3/controller-gen-linux-amd64",
+    executable = True,
+    sha256 = "21e5f3239666fc0c5e2d23c2a3a83fd655af40a969ede7a118b86832c35a829f",
+)
+
+http_file(
+    name = "controller_gen_darwin_arm64",
+    url = "https://github.com/kubernetes-sigs/controller-tools/releases/download/v0.17.3/controller-gen-darwin-arm64",
+    executable = True,
+    sha256 = "2ca28be7185d9279ed82e3355529b0543938f392cb812add3f25a62196ed7441",
+)
