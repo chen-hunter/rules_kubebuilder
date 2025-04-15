@@ -55,8 +55,8 @@ def _controller_gen_action(ctx, cg_cmd, outputs, output_path):
     )
 
 def _inputs(ctx, go_ctx):
-    inputs = (ctx.files.srcs + go_ctx.sdk.srcs + go_ctx.sdk.tools +
-              go_ctx.sdk.headers + go_ctx.stdlib.libs)
+    inputs = (ctx.files.srcs + go_ctx.sdk.srcs.to_list() + go_ctx.sdk.tools.to_list() +
+              go_ctx.sdk.headers.to_list() + go_ctx.stdlib.libs.to_list())
 
     if ctx.attr.gopath_dep:
         inputs += ctx.attr.gopath_dep.files.to_list()
