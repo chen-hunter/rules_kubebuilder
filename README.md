@@ -10,7 +10,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
     name = "rules_kubebuilder",
     branch = "main",
-    remote = "https://github.com/ob/rules_kubebuilder.git",
+    remote = "https://github.com/chen-hunter/rules_kubebuilder.git",
 )
 
 load("@rules_kubebuilder//kubebuilder:sdk.bzl", "kubebuilder_register_sdk")
