@@ -92,7 +92,7 @@ def _controller_gen_impl(ctx):
     )
     ctx.actions.run_shell(
         mnemonic = "ControllerGen",
-        outputs = outputs,
+        outputs = ctx.outputs.outs,
         inputs = _inputs(ctx, go_ctx),
         env = _env(),
         command = cmd,
