@@ -238,7 +238,6 @@ _controller_gen = rule(
         ),
         "args": attr.string(
             mandatory = True,
-            allow_empty = False,
             doc = "The arguments to pass to controller-gen",
         ),
         "outs": attr.output_list(
