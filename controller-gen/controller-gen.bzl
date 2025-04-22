@@ -229,7 +229,7 @@ _controller_gen_webhook = rule(
 
 _controller_gen = rule(
     implementation = _controller_gen_impl,
-    attr = {
+    attrs = {
         "srcs": attr.label_list(
             allow_empty = False,
             allow_files = True,
